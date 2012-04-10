@@ -24,6 +24,20 @@ Installation:
 [_modules]
 	modules_comments=modules/comments/comments.php
 	
+3. Set up permissions (see next section)
+
+
+Setting Up Permissions:
+=======================
+
+If you want users to be able to post comments give them the "post comment" permission.
+If you want them to be able to post comments without requiring approval, given them
+the "post approved comment" permission.
+If you want them to be able to view comments, give them the "view comments" permission.
+
+Users will automatically have permission to edit and delete their own comments unless
+you override this.
+	
 
 
 Disclaimer:
