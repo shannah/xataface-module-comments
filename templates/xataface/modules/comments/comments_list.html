@@ -1,0 +1,49 @@
+<div class="xf-comments-section" data-xf-comments-record-id="{$record->getId()|escape}">
+	<div class="xf-comments-menu xf-comments-top-menu">
+		{actions_menu record=$record category="comments_actions"}
+	</div>
+	<ul class="xf-comments-list">
+		{foreach from=$comments item=comment}
+		{if $comment->checkPermission('view')}
+			<li class="xf-comments-comment 
+				{if $comment->val('approved')}xf-comments-comment-approved{else}xf-comments-comment-unapproved{/if}
+				{if $comment->val('attachment_id')}xf-comments-comment-with-attachment{/if}
+				xf-comments-comment-type-{$comment->val('comment_type_id')|escape}
+			" data-xf-comment-id="{$comment->val('comment_id')|escape}">
+				<h3 class="xf-comment-title">{$comment->htmlValue('subject')|truncate}</h3>
+				<div class="xf-comment-byline">
+					<div class="xf-comment-byline-actions">
+						<ul>
+						{actions_menu record=$comment category="comment_byline_actions"}
+					</div>
+					<div class="xf-comment-posted-by-avatar">
+						{$comment->htmlValue('avatar')}
+					</div>
+					<span class="xf-comment-posted-by-label">Posted by</span>
+					<span class="xf-comment-posted-by-value">{$comment->htmlValue('posted_by')|truncate:32}</span>
+					<span class="xf-comment-date-posted">{$comment->htmlValue('date_posted')}</span>
+	
+				</div>
+				
+				<div class="xf-comment-body">
+				
+					{$comment->htmlValue('contents')|truncate:255}
+					{if $comment->getLength('contents') > 255}
+						<a href="#" data-comment-id="{$comment->val('comment_id')|escape}" class="more">{translate id="xataface.modules.comments.more"}More{/translate}</a>
+					{/if}
+				</div>
+				
+				<div class="xf-comments-comment-menu">
+					{actions_menu record=$comment category="comment_actions"}
+				</div>
+			
+			</li>
+		{/if}
+		{/foreach}
+	</ul>
+	{if $comments|@count>0}
+	<div class="xf-comments-menu xf-comments-bottom-menu">
+		{actions_menu record=$record category="comments_actions"}
+	</div>
+	{/if}
+</div>
