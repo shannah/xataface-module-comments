@@ -54,13 +54,13 @@ class tables_dataface__comments {
 	 * Defines permissions for the comments table.
 	 */
 	function getPermissions($record){
-		if ( !$record ) return null;
+		if ( !$record ) $record = new Dataface_Record("dataface__version", array());
 		try {
 			$source = $this->tryGetRecordForComment($record);
 		} catch (Exception $ex){
-			return null;
+			$source = new Dataface_Record('dataface__version', array());
 		}
-		
+		if ( !$source ) $source = new Dataface_Record('dataface__version', array());
 		$perms = $source->getPermissions();
 		$out = array();
 		$out['new'] = @$perms['post comment'] ? 1:0;
